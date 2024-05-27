@@ -1,4 +1,4 @@
-const arr = new Array(10).fill('test')
+const arr = new Array(100).fill('test')
 export default function Home() {
   return (
     <main className="pt-navHeight">
