@@ -1,7 +1,7 @@
 const arr = new Array(10).fill('test')
 export default function Home() {
   return (
-    <main className="pt-navHeight">
+    <>
       <p>로그인 안했을 때: 가이드</p>
       <p>로그인 했을 때: 대쉬보드</p>
       <p>{arr.length}</p>
@@ -14,6 +14,6 @@ export default function Home() {
           provident voluptate. Voluptate!
         </p>
       ))}
-    </main>
+    </>
   )
 }
