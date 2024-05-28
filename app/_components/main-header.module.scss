@@ -3,15 +3,13 @@
   ul {
     li {
       padding: 0 1rem;
-      &:hover {
-        transform: scale(1.1);
-      }
     }
   }
 }
 
 .logo {
+  transition: 0.5s;
   &:hover {
-    transform: scale(1.1);
+    transform: rotate(180deg);
   }
 }

@@ -1,7 +1,7 @@
 export default function Page() {
   return (
     <>
-      <h1>Community</h1>
+      <h1>Guest</h1>
     </>
   )
 }
