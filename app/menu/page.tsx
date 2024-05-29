@@ -17,7 +17,7 @@ export default async function Page() {
         <h1>Jiyun Home</h1>
         <p>Welcome to my humble abodes.</p>
       </header>
-      <main className={style.main}>
+      <main className="px-16 py-6">
         <MealsGrid meals={meals}></MealsGrid>
       </main>
     </>

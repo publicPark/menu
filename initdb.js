@@ -4,11 +4,10 @@ const db = sql('meals.db')
 const dummyHouses = [
   {
     houseId: 'public',
-    title: 'My Home',
+    title: '우리집',
     summary: 'I cook you cook',
-    currency: 'EUR',
-    lang: 'en',
-    host: '',
+    // currency: 'EUR'
+    // location
   },
 ]
 const dummyMeals = [
@@ -17,30 +16,62 @@ const dummyMeals = [
     title: 'My salad',
     image: '/my-salad.jpeg',
     summary: 'tomato cucumber salad',
-    price: 5,
+    category: 'Salads',
+  },
+  {
+    houseId: 'public',
+    title: 'Coconut milk and fruit',
+    image: '/coconut.jpeg',
+    summary: 'yummy yummy',
+    category: 'Desserts',
   },
 ]
 
 db.prepare(
   `
-   CREATE TABLE IF NOT EXISTS meals (
-       id INTEGER PRIMARY KEY AUTOINCREMENT,
-       houseId TEXT NOT NULL,
-       title TEXT NOT NULL,
-       image TEXT NOT NULL,
-       summary TEXT NOT NULL
-    )
+  CREATE TABLE IF NOT EXISTS houses (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    houseId TEXT NOT NULL UNIQUE,
+    title TEXT NOT NULL,
+    summary TEXT NOT NULL
+  )
+`
+).run()
+
+db.prepare(
+  `
+  CREATE TABLE IF NOT EXISTS meals (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    houseId TEXT NOT NULL,
+    title TEXT NOT NULL,
+    image TEXT NOT NULL,
+    summary TEXT NOT NULL,
+    category TEXT
+  )
 `
 ).run()
 
 async function initData() {
+  const stmt2 = db.prepare(`
+      INSERT INTO houses VALUES (
+         null,
+         @houseId,
+         @title,
+         @summary
+      )
+   `)
+  for (const house of dummyHouses) {
+    stmt2.run(house)
+  }
+
   const stmt = db.prepare(`
       INSERT INTO meals VALUES (
          null,
          @houseId,
          @title,
          @image,
-         @summary
+         @summary,
+         @category
       )
    `)
 

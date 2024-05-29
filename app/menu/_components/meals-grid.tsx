@@ -3,9 +3,9 @@ import MealItem from './meal-item'
 
 export default function MealsGrid({ meals }: { meals: Array<TypeMealItem> }) {
   return (
-    <ul className="grid">
+    <ul className="mt-4 grid lg:grid-cols-3 md:grid-cols-2 gap-10">
       {meals.map((meal) => (
-        <li key={meal.id} className="grid-cols-1">
+        <li key={meal.id}>
           <MealItem {...meal} />
         </li>
       ))}
