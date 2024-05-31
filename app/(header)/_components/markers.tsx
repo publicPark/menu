@@ -1,19 +1,25 @@
-import { AdvancedMarker, Pin, useMap } from '@vis.gl/react-google-maps';
-import { useCallback } from 'react';
+import {
+  AdvancedMarker,
+  Pin,
+  useMap,
+  InfoWindow,
+} from '@vis.gl/react-google-maps';
+import { useCallback, useState } from 'react';
 type Poi = {
   key: string;
   location: google.maps.LatLngLiteral;
   title: string;
-  color: string;
 };
-import style from './google-map.module.scss';
+import Link from 'next/link';
 
 export default function Markers(props: {
   pois: Poi[];
-  handleSelect: (value: string, title: string, color: string) => void;
+  handleSelect?: (poi: Poi) => void;
 }) {
   const map = useMap();
+  const [selected, setSelected] = useState<Poi | null>(null);
 
+  // 마커 선택시
   const handleClick = useCallback(
     (ev: google.maps.MapMouseEvent, poi: Poi) => {
       if (!map) return;
@@ -23,7 +29,7 @@ export default function Markers(props: {
       map.setZoom(11);
       map.panTo(ev.latLng);
 
-      props.handleSelect(poi.key, poi.title, poi.color);
+      setSelected(poi);
     },
     [map]
   );
@@ -38,20 +44,19 @@ export default function Markers(props: {
             onClick={(e) => handleClick(e, poi)}
             title={poi.title}
           >
-            <div
-              className={style.tag}
-              style={{
-                backgroundColor: poi.color,
-              }}
-            >
-              {poi.title}
-            </div>
-            <div
-              className={style.tagafter}
-              style={{
-                borderTopColor: poi.color,
-              }}
-            ></div>
+            {selected && (
+              <InfoWindow
+                position={selected.location}
+                onCloseClick={() => setSelected(null)}
+              >
+                <b>{selected.title}</b>
+                <div>
+                  <Link className="underline" href={`/menu/${selected.key}`}>
+                    {selected.key}
+                  </Link>
+                </div>
+              </InfoWindow>
+            )}
             {/* <Pin glyph={poi.title 🥗}></Pin> */}
           </AdvancedMarker>
         );

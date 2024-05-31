@@ -9,6 +9,7 @@ import style from './page.module.scss';
 import { TypeHouse, TypeMeal } from '@/types/type';
 import { Suspense } from 'react';
 import Loading from '../../_components/layout/loading-salad';
+import { notFound } from 'next/navigation';
 
 async function Meals({ houseKey }: { houseKey: string }) {
   const meals = (await getMeals(houseKey)) as TypeMeal[];
@@ -18,6 +19,10 @@ async function Meals({ houseKey }: { houseKey: string }) {
 
 async function House({ houseKey }: { houseKey: string }) {
   const house = (await getHouse(houseKey)) as TypeHouse;
+
+  if (!house) {
+    notFound();
+  }
   return (
     <>
       <h1>{house.title}</h1>

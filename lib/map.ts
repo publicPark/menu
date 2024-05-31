@@ -1,32 +1,23 @@
 import { TypeHouse } from '@/types/type';
 
 export function convertPois(houses: TypeHouse[]) {
-  const converted = houses.sort((a, b) => {
-    if (!a.location && !b.location) {
-      return 0; // If both have no location, keep their order unchanged
-    } else if (!a.location) {
-      return -1; // If only a has no location, move it before b
-    } else if (!b.location) {
-      return 1; // If only b has no location, move it before a
-    } else {
-      return 0; // If both have locations, keep their order unchanged
-    }
-  });
-
+  // const converted = houses.sort((a, b) => {
+  //   if (!a.location && !b.location) {
+  //     return 0; // If both have no location, keep their order unchanged
+  //   } else if (!a.location) {
+  //     return -1; // If only a has no location, move it before b
+  //   } else if (!b.location) {
+  //     return 1; // If only b has no location, move it before a
+  //   } else {
+  //     return 0; // If both have locations, keep their order unchanged
+  //   }
+  // });
+  const converted = houses.filter((h) => h.location);
   return converted.map((h) => {
-    const color =
-      'rgb(' +
-      Math.floor(Math.random() * 150) +
-      ',' +
-      Math.floor(Math.random() * 150) +
-      ',' +
-      Math.floor(Math.random() * 150) +
-      ')';
     return {
       key: h.key,
       location: h.location ? h.location : { lat: 37.241861, lng: 131.865035 },
       title: h.title,
-      color,
     };
   });
 }
