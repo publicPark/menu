@@ -6,22 +6,23 @@ import Markers from './markers';
 import { useEffect, useState } from 'react';
 
 const KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-console.log('test', KEY);
 export default function GoogleMap({ houses }: { houses: TypeHouse[] }) {
   const [pois, setPois] = useState(convertPois(houses));
-  const [avg, setAvg] = useState(getAvgPos(pois));
+  const [avg, setAvg] = useState({ lat: 0, lng: 0 });
   // console.log('test', houses);
 
   useEffect(() => {
     const v = convertPois(houses);
     setPois(v);
-    setAvg(getAvgPos(v));
+    if (v.length) {
+      setAvg(getAvgPos(v));
+    }
     return;
   }, [houses]);
 
   return (
     <>
-      {KEY && (
+      {KEY && pois.length ? (
         <APIProvider
           apiKey={KEY}
           onLoad={() => console.log('Maps API has loaded.')}
@@ -37,6 +38,8 @@ export default function GoogleMap({ houses }: { houses: TypeHouse[] }) {
             <Markers pois={pois} />
           </Map>
         </APIProvider>
+      ) : (
+        <p className="text-center">Location is disclosed</p>
       )}
     </>
   );

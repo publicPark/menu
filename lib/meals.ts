@@ -19,8 +19,17 @@ export async function getHouse(key: string) {
   return db.prepare('SELECT * FROM houses WHERE key = ?').get(key);
 }
 
-export async function getHouses() {
-  const houses = db.prepare('SELECT * FROM houses').all() as TypeHouse[];
+export async function getHouses(key: string) {
+  let houses: TypeHouse[] = [];
+  const searchKey = `%${key}%`; // Add wildcards for partial matching
+  console.log('KEY', key);
+  if (key) {
+    houses = db
+      .prepare('SELECT * FROM houses WHERE key LIKE ?')
+      .all(searchKey) as TypeHouse[];
+  } else {
+    houses = db.prepare('SELECT * FROM houses').all() as TypeHouse[];
+  }
   const formattedHouses = houses.map((house) => ({
     ...house,
     location:
