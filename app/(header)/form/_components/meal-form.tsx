@@ -1,3 +1,5 @@
+import ImagePicker from './img-picker';
+
 export default function MealForm() {
   return (
     <>
@@ -12,7 +14,9 @@ export default function MealForm() {
             <label htmlFor="summary">Summary</label>
             <textarea id="summary" name="summary" rows={10}></textarea>
           </div>
-          <div>Image</div>
+          <div>
+            <ImagePicker />
+          </div>
           <button type="submit">Submit</button>
         </form>
       </main>

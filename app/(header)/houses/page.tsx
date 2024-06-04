@@ -7,7 +7,9 @@ export default function Page() {
     <>
       <h1>Search Houses</h1>
 
-      <input type="text" placeholder="houseKey" />
+      <form className="text-center">
+        <input type="text" placeholder="houseKey" id="key" name="key" />
+      </form>
     </>
   );
 }

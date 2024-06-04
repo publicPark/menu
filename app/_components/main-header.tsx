@@ -19,6 +19,9 @@ export default function MainHeader() {
             <li>
               <NavLink href="/houses">Houses</NavLink>
             </li>
+            <li>
+              <NavLink href="/form/menu">Form Menu</NavLink>
+            </li>
           </ul>
         </div>
       </nav>

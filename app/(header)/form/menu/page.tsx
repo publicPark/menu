@@ -1,4 +1,4 @@
-import MealForm from '../../_components/meal-form';
+import MealForm from '../_components/meal-form';
 
 export default function Form() {
   return (

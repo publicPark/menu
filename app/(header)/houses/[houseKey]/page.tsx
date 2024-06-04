@@ -32,7 +32,7 @@ export default function Page({
       <h1>Houses</h1>
       <section className="">
         <Suspense fallback={<LoadingSalad />}>
-          <Houses houseKey={houseKey} />
+          <Houses houseKey={houseKey === '*' ? '' : houseKey} />
         </Suspense>
       </section>
     </>
